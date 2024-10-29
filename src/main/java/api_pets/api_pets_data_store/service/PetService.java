@@ -39,11 +39,12 @@ public class PetService {
             ? node.get("petId").asLong() 
             : null; 
 
+            Long userId = node.get("userId").asLong();
+
             if( petId == null){
 
-                String name = "no name";
+                String name = node.get("name").asText();;
                 String breed = node.get("breed").asText();
-                Long userId = node.get("userId").asLong();
                 String typeString = node.get("type").asText();
                 PetType type = PetType.fromString(typeString);
                 Pet pet = new Pet(null, type, name, breed, userId);
@@ -66,6 +67,7 @@ public class PetService {
             messageToSend.put("message", "Pet Data Stored Successfully");
             messageToSend.put("petImageId", petImageId);
             messageToSend.put("petId", petId);
+            messageToSend.put("userId", userId);
 
             String jsonMessage = objectMapper.writeValueAsString(messageToSend);
 
